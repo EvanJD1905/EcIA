@@ -35,7 +35,7 @@ combined_data <- combined_data %>%
 combined_data <- combined_data %>%
   mutate(barWidth = ifelse(totalCount == 0, 0.5, 1))
 
-#Plotting results
+  #Plotting results
 ggplot(combined_data, aes(x = order, y = totalCount, fill = Site)) +
   geom_bar(stat = "identity", position = "dodge") +
   labs(title = "Invertebrate Counts by Order and Site",
@@ -75,7 +75,7 @@ combined_data <- combined_data %>%
 combined_data <- combined_data %>%
   mutate(barWidth = ifelse(orderCount == 0, 0.5, 1))
 
-#Plotting results
+  #Plotting results
 
 ggplot(combined_data, aes(x = order, y = orderCount, fill = site)) +
   geom_bar(stat = "identity", position = "dodge") +
