@@ -1,4 +1,5 @@
 #EcIA Results
+
 library(ggplot2)
 library(readxl)
 library(dplyr)
@@ -8,13 +9,13 @@ North_Inverts<- read_excel("~/Desktop/Masters/EIA/Arran fieldcourse.xlsx", sheet
 South_Inverts<- read_excel("~/Desktop/Masters/EIA/Arran fieldcourse.xlsx", sheet="South side invert transects")                  #inv
 Moth<- read_excel("~/Desktop/Masters/EIA/Arran fieldcourse.xlsx", sheet="N+S Moth traps")                  #inv
 Stream<- read_excel("~/Desktop/Masters/EIA/Arran fieldcourse.xlsx", sheet="N+S Stream inverts")                  #inv
-Bog<- read_excel("~/Desktop/Masters/EIA/Arran fieldcourse.xlsx", sheet="BOG").                   #inv
-Verts<- read_excel("~/Desktop/Masters/EIA/Arran fieldcourse.xlsx", sheet="Vertebrates").            #V
-Incidentals <- read_excel("~/Desktop/Masters/EIA/Arran fieldcourse.xlsx", sheet="Incidentals").     #V
-Tech <- read_excel("~/Desktop/Masters/EIA/Arran fieldcourse.xlsx", sheet="Vertebrates (tech)").    #V
+Bog<- read_excel("~/Desktop/Masters/EIA/Arran fieldcourse.xlsx", sheet="BOG")                  #inv
+Verts<- read_excel("~/Desktop/Masters/EIA/Arran fieldcourse.xlsx", sheet="Vertebrates")          #V
+Incidentals <- read_excel("~/Desktop/Masters/EIA/Arran fieldcourse.xlsx", sheet="Incidentals")     #V
+Tech <- read_excel("~/Desktop/Masters/EIA/Arran fieldcourse.xlsx", sheet="Vertebrates (tech)")    #V
 
 
-# Comparison between Invert Orders at both sites
+# Comparison between Invertebrate Orders at both sites
 
 N_North_Inverts <- North_Inverts %>%
   group_by(order) %>%
@@ -34,6 +35,7 @@ combined_data <- combined_data %>%
 combined_data <- combined_data %>%
   mutate(barWidth = ifelse(totalCount == 0, 0.5, 1))
 
+#Plotting results
 ggplot(combined_data, aes(x = order, y = totalCount, fill = Site)) +
   geom_bar(stat = "identity", position = "dodge") +
   labs(title = "Invertebrate Counts by Order and Site",
@@ -73,6 +75,8 @@ combined_data <- combined_data %>%
 combined_data <- combined_data %>%
   mutate(barWidth = ifelse(orderCount == 0, 0.5, 1))
 
+#Plotting results
+
 ggplot(combined_data, aes(x = order, y = orderCount, fill = site)) +
   geom_bar(stat = "identity", position = "dodge") +
   labs(title = "Vertebrate Species Counts by Order and Region",
@@ -81,7 +85,7 @@ ggplot(combined_data, aes(x = order, y = orderCount, fill = site)) +
   scale_fill_manual(values = c("Site B" = "deepskyblue2", "Site A" = "firebrick2")) +
   theme_minimal()
 
-ggsave("VertebratesSpecies_SiteComparison.JPEG", width = 10, height= 6, dpi=300)
+
 
 
 
