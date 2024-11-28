@@ -1,11 +1,12 @@
 library(readxl)
 library(dplyr)
 
+#Reading the Scottish Biodiversity List Excel
 file1 <- "~/Desktop/Masters/EIA/Scottish Biodiversity List.xls"
 sheet1 <- "Terrestrial Species"
 data1 <- read_excel(file1, sheet = sheet1)
 
-# Load all sheets from the second document and combine them
+#"~/Desktop/Masters/EIA/Arran fieldcourse.xlsx" was taken directly from shared excel document and unaltered.
 North_Inverts<- read_excel("~/Desktop/Masters/EIA/Arran fieldcourse.xlsx", sheet="North side invert transects")                  #inv
 South_Inverts<- read_excel("~/Desktop/Masters/EIA/Arran fieldcourse.xlsx", sheet="South side invert transects")                  #inv
 Moth<- read_excel("~/Desktop/Masters/EIA/Arran fieldcourse.xlsx", sheet="N+S Moth traps")                  #inv
@@ -51,13 +52,14 @@ N_Tech <- Tech %>%
 combined_data <- bind_rows(N_North_Inverts, N_South_Inverts, N_Moth, N_Stream, N_Bog, N_Verts, N_Incidentals, N_Tech)
 print(combined_data)
 
-# Extract the scientific names from both datasets
+# Extractinf the scientific names from both datasets
 names1 <- data1 %>% pull(`Scientific Name`)
 names2 <- combined_data %>% pull(scientificName)
 
-# Find matches between the lists
+# Finding the matches between the lists
 Matches <- intersect(names1, names2)
 
 print(Matches)
+
 
 

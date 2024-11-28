@@ -1,4 +1,4 @@
-#Shannon Index
+#Shannon Index Calculation + Order calculations
 library(vegan)
 library(readxl)
 library(dplyr)
@@ -239,3 +239,40 @@ ggplot(shannon_data, aes(x = order, y = Shannon_Index, fill = Site)) +
 ggsave("ShannonScores.JPEG", width = 10, height= 6, dpi=300)
 
   
+
+#Working out the total number of orders
+combined_data <- bind_rows(N_North_Inverts, N_South_Inverts, N_Moth, N_Stream, N_Bog, N_Verts, N_Incidentals, N_Tech)
+orderss <- length(unique(combined_data$order))
+print(orderss)
+
+combinedv <-  bind_rows(N_Verts, N_Incidentals, N_Tech)
+ordersv <- length(unique(combinedv$order))
+print(ordersv)
+
+combinedi <- bind_rows(N_North_Inverts, N_South_Inverts, N_Moth, N_Stream, N_Bog)
+ordersi <- length(unique(combinedi$order))
+print(ordersi)
+
+
+
+
+# Total orders per site
+site_orders <- combined_data %>%
+  group_by(site) %>%
+  summarize(total_orders = n_distinct(order))
+
+print(site_orders)
+
+total_orders_list <- combined_data %>%
+  summarize(orders_list = unique(order))
+total_orders_list
+
+# Unique orders per site
+site_orders_list <- combined_data %>%
+  group_by(site) %>%
+  summarize(orders_list = list(unique(order)))
+
+write.csv(site_orders_list$orders_list, "orders_list.csv", row.names = FALSE)
+
+
+

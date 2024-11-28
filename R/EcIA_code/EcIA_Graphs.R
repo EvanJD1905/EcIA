@@ -5,6 +5,7 @@ library(readxl)
 library(dplyr)
 library(tidyr)
 
+#"~/Desktop/Masters/EIA/Arran fieldcourse.xlsx" was taken directly from shared excel document and unaltered.
 North_Inverts<- read_excel("~/Desktop/Masters/EIA/Arran fieldcourse.xlsx", sheet="North side invert transects")                  #inv
 South_Inverts<- read_excel("~/Desktop/Masters/EIA/Arran fieldcourse.xlsx", sheet="South side invert transects")                  #inv
 Moth<- read_excel("~/Desktop/Masters/EIA/Arran fieldcourse.xlsx", sheet="N+S Moth traps")                  #inv
@@ -18,11 +19,11 @@ Tech <- read_excel("~/Desktop/Masters/EIA/Arran fieldcourse.xlsx", sheet="Verteb
 # Comparison between Invertebrate Orders at both sites
 
 N_North_Inverts <- North_Inverts %>%
-  group_by(order) %>%
+  group_by(order, site) %>%
   summarize(totalCount = sum(individualCount), .groups = "drop")
 
 N_South_Inverts <- South_Inverts %>%
-  group_by(order) %>%
+  group_by(order, site) %>%
   summarize(totalCount = sum(individualCount), .groups = "drop")
 
 N_North_Inverts$Site <- "Site A"
@@ -70,6 +71,7 @@ combined_data <- combined_data %>%
     site == "South" ~ "Site B",
   ))
 
+combined_
 combined_data <- combined_data %>%
   complete(order, site, fill = list(orderCount = 0))
 combined_data <- combined_data %>%
@@ -84,8 +86,6 @@ ggplot(combined_data, aes(x = order, y = orderCount, fill = site)) +
        y = "Total Species Count") +
   scale_fill_manual(values = c("Site B" = "deepskyblue2", "Site A" = "firebrick2")) +
   theme_minimal()
-
-
 
 
 
