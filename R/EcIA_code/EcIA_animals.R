@@ -52,7 +52,7 @@ N_Tech <- Tech %>%
 combined_data <- bind_rows(N_North_Inverts, N_South_Inverts, N_Moth, N_Stream, N_Bog, N_Verts, N_Incidentals, N_Tech)
 print(combined_data)
 
-# Extractinf the scientific names from both datasets
+# Extracting the scientific names from both datasets
 names1 <- data1 %>% pull(`Scientific Name`)
 names2 <- combined_data %>% pull(scientificName)
 

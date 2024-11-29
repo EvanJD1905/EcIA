@@ -52,7 +52,7 @@ N_Tech <- Tech %>%
 combined_data <- bind_rows(N_North_Inverts, N_South_Inverts, N_Moth, N_Stream, N_Bog, N_Verts, N_Incidentals, N_Tech)
 print(combined_data)
 
-SiteAmoth_data <- combined_data %>%
+SiteAmoth_data <- combined_data %>%    #Splitting by Site
   filter(site == "North") %>%
   select(order, orderCount)
 
@@ -79,7 +79,7 @@ print(shannon_A)
 print(shannon_B)
 
 
-#Invertebrate hillside surveys
+#Invertebrate hillside surveys (roughly the same methodologies)
 
 SiteAinverts_data <- N_North_Inverts %>%
   filter(site == "North") %>%

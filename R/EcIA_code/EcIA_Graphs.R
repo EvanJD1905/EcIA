@@ -34,7 +34,7 @@ combined_data <- rbind(N_North_Inverts, N_South_Inverts)
 combined_data <- combined_data %>%
   complete(order, Site, fill = list(totalCount = 0))
 combined_data <- combined_data %>%
-  mutate(barWidth = ifelse(totalCount == 0, 0.5, 1))
+  mutate(barWidth = ifelse(totalCount == 0, 0.5, 1)). #To make chart bars the right size when plotted
 
   #Plotting results
 ggplot(combined_data, aes(x = order, y = totalCount, fill = Site)) +
@@ -65,20 +65,19 @@ N_Tech <- Tech %>%
 
 combined_data <- bind_rows(N_Verts, N_Incidentals, N_Tech)
 
+#Changing from North/South to A/B
 combined_data <- combined_data %>%
   mutate(site = case_when(
     site == "North" ~ "Site A",
     site == "South" ~ "Site B",
   ))
 
-combined_
 combined_data <- combined_data %>%
   complete(order, site, fill = list(orderCount = 0))
 combined_data <- combined_data %>%
-  mutate(barWidth = ifelse(orderCount == 0, 0.5, 1))
+  mutate(barWidth = ifelse(orderCount == 0, 0.5, 1))  #To make chart bars the right size when plotted
 
-  #Plotting results
-
+#Plotting results
 ggplot(combined_data, aes(x = order, y = orderCount, fill = site)) +
   geom_bar(stat = "identity", position = "dodge") +
   labs(title = "Vertebrate Species Counts by Order and Region",
